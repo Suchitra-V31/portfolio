@@ -152,3 +152,54 @@ body {
     .welcome-text { display: none; }
     .display-5 { font-size: 2.2rem; }
 }
+/* General Skills Container Fix */
+#skills {
+    background-color: #1a1a1a; /* Matches your screenshot */
+    padding: 60px 0;
+}
+
+#skills .btn {
+    border-width: 2px;
+    font-weight: 700 !important; /* Forces bold for visibility */
+    width: 170px; /* Uniform width */
+    height: 55px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 8px;
+    background-color: transparent; /* No fill until hover */
+    transition: all 0.3s ease;
+}
+
+/* 1. ServiceNow Core - ALWAYS VISIBLE ORANGE */
+.btn-sn-core {
+    border-color: #ffa500 !important; /* Solid Orange */
+    color: #ffa500 !important;        /* Solid Orange text */
+}
+
+.btn-sn-core:hover {
+    background-color: #ffa500 !important;
+    color: #1a1a1a !important; /* Dark text on orange background */
+}
+
+/* 2. Pro-Code Backend - ALWAYS VISIBLE WHITE/MINT */
+.btn-tech-outline {
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+}
+
+.btn-tech-outline:hover {
+    background-color: #ffffff;
+    color: #1a1a1a !important;
+}
+
+/* 3. Database/Tools - ALWAYS VISIBLE MINT/CYAN */
+.btn-sn-mint {
+    border-color: #81b5a1 !important;
+    color: #81b5a1 !important;
+}
+
+.btn-sn-mint:hover {
+    background-color: #81b5a1;
+    color: #1a1a1a !important;
+}

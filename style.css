@@ -73,43 +73,56 @@ body {
 
 .semi-circle { margin-top: 20px; }
 
-/* Skills Section - HIGH VISIBILITY Fix */
+/* --- Skills Section: THE VISIBILITY FIX --- */
+#skills {
+    background-color: #1a1a1a; 
+    padding: 60px 0;
+}
+
 #skills .btn {
     border-width: 2px;
-    font-weight: 700 !important;
-    width: 160px;
+    font-weight: 700 !important; 
+    width: 170px; 
     height: 55px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin: 5px;
+    margin: 8px;
+    background-color: transparent; 
+    transition: all 0.3s ease;
 }
 
+/* 1. ServiceNow Core - High Contrast Orange */
 .btn-sn-core {
-    border-color: orange !important;
-    color: orange !important;
+    border-color: #ffa500 !important; 
+    color: #ffa500 !important;        
 }
+
 .btn-sn-core:hover {
-    background-color: orange;
-    color: black !important;
+    background-color: #ffa500 !important;
+    color: #1a1a1a !important; 
 }
 
+/* 2. Pro-Code Backend - Clean White */
 .btn-tech-outline {
-    border-color: white !important;
-    color: white !important;
-}
-.btn-tech-outline:hover {
-    background-color: white;
-    color: black !important;
+    border-color: #ffffff !important;
+    color: #ffffff !important;
 }
 
+.btn-tech-outline:hover {
+    background-color: #ffffff;
+    color: #1a1a1a !important;
+}
+
+/* 3. Database/Tools - ServiceNow Mint */
 .btn-sn-mint {
     border-color: #81b5a1 !important;
     color: #81b5a1 !important;
 }
+
 .btn-sn-mint:hover {
     background-color: #81b5a1;
-    color: black !important;
+    color: #1a1a1a !important;
 }
 
 /* Project Cards */
@@ -151,55 +164,4 @@ body {
     .nav-border { padding: 5px 10px; }
     .welcome-text { display: none; }
     .display-5 { font-size: 2.2rem; }
-}
-/* General Skills Container Fix */
-#skills {
-    background-color: #1a1a1a; /* Matches your screenshot */
-    padding: 60px 0;
-}
-
-#skills .btn {
-    border-width: 2px;
-    font-weight: 700 !important; /* Forces bold for visibility */
-    width: 170px; /* Uniform width */
-    height: 55px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin: 8px;
-    background-color: transparent; /* No fill until hover */
-    transition: all 0.3s ease;
-}
-
-/* 1. ServiceNow Core - ALWAYS VISIBLE ORANGE */
-.btn-sn-core {
-    border-color: #ffa500 !important; /* Solid Orange */
-    color: #ffa500 !important;        /* Solid Orange text */
-}
-
-.btn-sn-core:hover {
-    background-color: #ffa500 !important;
-    color: #1a1a1a !important; /* Dark text on orange background */
-}
-
-/* 2. Pro-Code Backend - ALWAYS VISIBLE WHITE/MINT */
-.btn-tech-outline {
-    border-color: #ffffff !important;
-    color: #ffffff !important;
-}
-
-.btn-tech-outline:hover {
-    background-color: #ffffff;
-    color: #1a1a1a !important;
-}
-
-/* 3. Database/Tools - ALWAYS VISIBLE MINT/CYAN */
-.btn-sn-mint {
-    border-color: #81b5a1 !important;
-    color: #81b5a1 !important;
-}
-
-.btn-sn-mint:hover {
-    background-color: #81b5a1;
-    color: #1a1a1a !important;
 }

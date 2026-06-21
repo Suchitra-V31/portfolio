@@ -1,212 +1,792 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suchitra V | ServiceNow Developer Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Tagesschrift&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suchitra V — ServiceNow Developer</title>
+<meta name="description" content="Suchitra V — ServiceNow Developer & Integration Engineer. Scripted REST APIs, Flow Designer, Java/Node.js middleware, ITSM automation.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230A0E1A'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%233DDC97'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0E1A;
+    --panel:#11192C;
+    --panel-alt:#161F36;
+    --border:#23304A;
+    --border-soft:#1A2238;
+    --text:#EAF0FB;
+    --text-muted:#8694B3;
+    --text-faint:#56628A;
+    --green:#3DDC97;
+    --amber:#F5B544;
+    --blue:#5DB7F5;
+    --green-dim:rgba(61,220,151,0.12);
+    --amber-dim:rgba(245,181,68,0.12);
+    --mono:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --sans:'Inter', system-ui, -apple-system, sans-serif;
+    --maxw:1080px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{
+    scroll-behavior:smooth;
+    background:var(--bg);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    background:
+      radial-gradient(circle at 18% 0%, rgba(61,220,151,0.07), transparent 45%),
+      radial-gradient(circle at 100% 20%, rgba(93,183,245,0.05), transparent 40%),
+      var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  a{color:inherit; text-decoration:none;}
+
+  ::selection{background:var(--green); color:#06140E;}
+
+  :focus-visible{
+    outline:2px solid var(--green);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 clamp(20px, 5vw, 32px);
+  }
+
+  .mono{font-family:var(--mono);}
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--text-faint);
+    font-weight:500;
+  }
+
+  /* ---------- status dot ---------- */
+  .dot{
+    width:8px; height:8px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 0 0 rgba(61,220,151,0.5);
+    flex-shrink:0;
+    animation:pulse 2.4s ease-out infinite;
+  }
+  .dot.amber{background:var(--amber); box-shadow:0 0 0 0 rgba(245,181,68,0.5); animation:pulseAmber 2.4s ease-out infinite;}
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(61,220,151,0.45);}
+    70%{box-shadow:0 0 0 8px rgba(61,220,151,0);}
+    100%{box-shadow:0 0 0 0 rgba(61,220,151,0);}
+  }
+  @keyframes pulseAmber{
+    0%{box-shadow:0 0 0 0 rgba(245,181,68,0.45);}
+    70%{box-shadow:0 0 0 8px rgba(245,181,68,0);}
+    100%{box-shadow:0 0 0 0 rgba(245,181,68,0);}
+  }
+
+  .status-pill{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono);
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--green);
+    background:var(--green-dim);
+    border:1px solid rgba(61,220,151,0.25);
+    padding:6px 12px;
+    border-radius:100px;
+  }
+  .status-pill.amber{color:var(--amber); background:var(--amber-dim); border-color:rgba(245,181,68,0.3);}
+
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,14,26,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .nav-inner{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:16px clamp(20px, 5vw, 32px);
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{
+    font-family:var(--mono);
+    font-weight:600;
+    font-size:0.95rem;
+    display:flex; align-items:center; gap:8px;
+  }
+  .logo .dot{width:7px; height:7px;}
+  .nav-links{
+    display:flex; align-items:center; gap:28px;
+    font-family:var(--mono);
+    font-size:0.78rem;
+    letter-spacing:0.03em;
+  }
+  .nav-links a{color:var(--text-muted); transition:color 0.15s;}
+  .nav-links a:hover{color:var(--text);}
+  .nav-cta{
+    color:var(--green) !important;
+    border:1px solid rgba(61,220,151,0.35);
+    padding:7px 14px;
+    border-radius:6px;
+  }
+  .nav-cta:hover{background:var(--green-dim);}
+  .nav-toggle{display:none; background:none; border:none; color:var(--text); font-size:1.4rem; cursor:pointer;}
+
+  @media (max-width:760px){
+    .nav-links{
+      position:absolute; top:100%; left:0; right:0;
+      flex-direction:column; align-items:flex-start; gap:0;
+      background:var(--panel);
+      border-bottom:1px solid var(--border-soft);
+      max-height:0; overflow:hidden;
+      transition:max-height 0.25s ease;
+    }
+    .nav-links.open{max-height:320px;}
+    .nav-links a{width:100%; padding:14px 24px; border-bottom:1px solid var(--border-soft);}
+    .nav-cta{border:none; border-radius:0;}
+    .nav-toggle{display:block;}
+  }
+
+  /* ---------- hero ---------- */
+  header.hero{
+    padding:clamp(56px, 10vw, 110px) 0 clamp(48px, 8vw, 80px);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .hero-top{
+    display:flex; align-items:center; gap:18px;
+    margin-bottom:28px;
+  }
+  .avatar{
+    position:relative;
+    width:56px; height:56px;
+    border-radius:50%;
+    background:linear-gradient(160deg, #1B2745, #0E1428);
+    border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-weight:700; font-size:1.05rem;
+    color:var(--green);
+    flex-shrink:0;
+  }
+  .avatar .blip{
+    position:absolute; bottom:1px; right:1px;
+    width:13px; height:13px; border-radius:50%;
+    background:var(--green);
+    border:2.5px solid var(--bg);
+  }
+  h1{
+    font-family:var(--mono);
+    font-size:clamp(2.1rem, 5.5vw, 3.1rem);
+    font-weight:700;
+    letter-spacing:-0.01em;
+    line-height:1.1;
+  }
+  .role{
+    font-size:clamp(1rem, 2.4vw, 1.25rem);
+    color:var(--text-muted);
+    margin-top:8px;
+    font-weight:500;
+  }
+  .hero-lead{
+    max-width:620px;
+    font-size:1.05rem;
+    color:#C2CCE3;
+    margin:26px 0 32px;
+  }
+  .hero-actions{
+    display:flex; flex-wrap:wrap; gap:12px;
+    margin-bottom:30px;
+  }
+  .btn{
+    font-family:var(--mono);
+    font-size:0.82rem;
+    letter-spacing:0.02em;
+    padding:12px 20px;
+    border-radius:7px;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+  .btn-primary{
+    background:var(--green);
+    color:#06140E;
+    font-weight:600;
+    border:1px solid var(--green);
+  }
+  .btn-primary:hover{transform:translateY(-1px); box-shadow:0 6px 20px rgba(61,220,151,0.18);}
+  .btn-ghost{
+    border:1px solid var(--border);
+    color:var(--text);
+  }
+  .btn-ghost:hover{border-color:var(--text-muted); transform:translateY(-1px);}
+
+  .hero-meta{
+    font-family:var(--mono);
+    font-size:0.78rem;
+    color:var(--text-faint);
+    display:flex; flex-wrap:wrap; gap:8px 0;
+  }
+  .hero-meta span:not(:last-child)::after{content:"·"; margin:0 10px; color:var(--border);}
+
+  /* ---------- panels (shared section styling) ---------- */
+  section{padding:clamp(48px, 7vw, 76px) 0; border-bottom:1px solid var(--border-soft);}
+  .section-head{margin-bottom:30px;}
+  .section-head h2{
+    font-family:var(--mono);
+    font-size:clamp(1.3rem, 3vw, 1.7rem);
+    font-weight:600;
+    margin-top:8px;
+  }
+  .section-head p{color:var(--text-muted); margin-top:8px; max-width:560px; font-size:0.95rem;}
+
+  .panel{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:12px;
+  }
+
+  .reveal{
+    opacity:0; transform:translateY(14px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- status / competencies ---------- */
+  .status-board{padding:6px;}
+  .status-row{
+    display:flex; align-items:center; gap:16px;
+    padding:18px 20px;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .status-row:last-child{border-bottom:none;}
+  .status-row .name{
+    font-weight:600; font-size:0.95rem;
+    min-width:230px;
+  }
+  .status-row .desc{
+    color:var(--text-muted);
+    font-size:0.86rem;
+    flex:1;
+  }
+  .status-row .state{
+    font-family:var(--mono);
+    font-size:0.7rem;
+    letter-spacing:0.08em;
+    color:var(--green);
+    white-space:nowrap;
+  }
+  .status-row .state.amber{color:var(--amber);}
+  @media (max-width:680px){
+    .status-row{flex-wrap:wrap;}
+    .status-row .name{min-width:0; width:100%;}
+    .status-row .state{margin-left:24px;}
+  }
+
+  /* ---------- metrics ---------- */
+  .metrics-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--border);
+    border:1px solid var(--border);
+    border-radius:12px;
+    overflow:hidden;
+  }
+  .metric{
+    background:var(--panel);
+    padding:30px 20px;
+    text-align:center;
+  }
+  .metric .num{
+    font-family:var(--mono);
+    font-size:clamp(1.8rem, 4vw, 2.5rem);
+    font-weight:700;
+    color:var(--green);
+  }
+  .metric .label{
+    font-size:0.8rem;
+    color:var(--text-muted);
+    margin-top:6px;
+  }
+  @media (max-width:640px){ .metrics-grid{grid-template-columns:repeat(2,1fr);} }
+
+  /* ---------- changelog / experience ---------- */
+  .changelog-entry{padding:26px;}
+  .changelog-head{
+    display:flex; flex-wrap:wrap; align-items:baseline; gap:10px 16px;
+    margin-bottom:18px;
+  }
+  .changelog-tag{
+    font-family:var(--mono);
+    font-size:0.75rem;
+    color:var(--blue);
+    background:rgba(93,183,245,0.1);
+    border:1px solid rgba(93,183,245,0.25);
+    padding:4px 9px;
+    border-radius:5px;
+  }
+  .changelog-head h3{font-size:1.05rem; font-weight:600;}
+  .changelog-head .co{color:var(--text-muted); font-size:0.9rem;}
+  .changelog-entry ul{list-style:none; display:flex; flex-direction:column; gap:14px;}
+  .changelog-entry li{
+    padding-left:22px;
+    position:relative;
+    color:#CBD4EA;
+    font-size:0.92rem;
+  }
+  .changelog-entry li::before{
+    content:"▸";
+    position:absolute; left:0; top:0;
+    color:var(--green);
+    font-size:0.8rem;
+  }
+  .changelog-entry li b{color:var(--text); font-weight:600;}
+
+  /* ---------- projects ---------- */
+  .project-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  @media (max-width:780px){ .project-grid{grid-template-columns:1fr;} }
+  .project-card{padding:26px; display:flex; flex-direction:column; gap:14px;}
+  .project-card .ptitle{font-size:1.05rem; font-weight:600;}
+  .project-card .pstack{
+    font-family:var(--mono); font-size:0.72rem; color:var(--text-faint);
+    display:flex; flex-wrap:wrap; gap:6px;
+  }
+  .project-card .pstack span{
+    border:1px solid var(--border); padding:3px 8px; border-radius:5px;
+  }
+  .project-card .ptime{font-family:var(--mono); font-size:0.72rem; color:var(--text-faint);}
+  .project-card .pblock{font-size:0.88rem; color:#C2CCE3;}
+  .project-card .pblock b{display:block; color:var(--text-muted); font-family:var(--mono); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:4px; font-weight:600;}
+  .project-card .impact{
+    margin-top:auto;
+    background:var(--green-dim);
+    border:1px solid rgba(61,220,151,0.22);
+    border-radius:8px;
+    padding:12px 14px;
+    font-size:0.86rem;
+    color:#BFF5DE;
+  }
+
+  /* ---------- skills chips ---------- */
+  .skill-group{margin-bottom:22px;}
+  .skill-group:last-child{margin-bottom:0;}
+  .skill-group h4{
+    font-family:var(--mono);
+    font-size:0.74rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--text-faint);
+    margin-bottom:12px;
+  }
+  .chips{display:flex; flex-wrap:wrap; gap:9px;}
+  .chip{
+    font-family:var(--mono);
+    font-size:0.8rem;
+    color:#D6DEF2;
+    background:var(--panel-alt);
+    border:1px solid var(--border);
+    padding:7px 12px;
+    border-radius:6px;
+  }
+
+  /* ---------- certifications / education ---------- */
+  .cert-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:20px;}
+  @media (max-width:780px){ .cert-grid{grid-template-columns:1fr;} }
+  .cert-list{padding:8px;}
+  .cert-item{
+    display:flex; align-items:flex-start; gap:12px;
+    padding:16px 18px;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .cert-item:last-child{border-bottom:none;}
+  .cert-item .dot{margin-top:6px;}
+  .cert-item .ctext b{display:block; font-size:0.92rem; font-weight:600;}
+  .cert-item .ctext span{font-size:0.82rem; color:var(--text-muted);}
+  .edu-card{padding:24px;}
+  .edu-card h4{font-size:0.7rem; font-family:var(--mono); letter-spacing:0.08em; text-transform:uppercase; color:var(--text-faint); margin-bottom:14px;}
+  .edu-card .school{font-weight:600; font-size:1rem;}
+  .edu-card .degree{color:var(--text-muted); font-size:0.88rem; margin-top:4px;}
+  .edu-card .gpa{
+    margin-top:16px;
+    font-family:var(--mono);
+    font-size:0.78rem;
+    color:var(--green);
+  }
+
+  /* ---------- contact / footer ---------- */
+  footer{padding:clamp(50px,8vw,80px) 0 40px;}
+  .contact-panel{
+    padding:clamp(30px,6vw,46px);
+    text-align:center;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(61,220,151,0.08), transparent 60%),
+      var(--panel);
+  }
+  .contact-panel h2{
+    font-family:var(--mono);
+    font-size:clamp(1.4rem,3.6vw,2rem);
+    font-weight:700;
+    margin:14px 0 10px;
+  }
+  .contact-panel p{color:var(--text-muted); max-width:480px; margin:0 auto 28px;}
+  .contact-links{display:flex; flex-wrap:wrap; justify-content:center; gap:12px;}
+  .footer-bottom{
+    margin-top:36px;
+    display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px;
+    font-family:var(--mono); font-size:0.74rem; color:var(--text-faint);
+  }
+</style>
 </head>
-
 <body>
-    <div class="main-container">
-        <div class="container">
-            <header class="d-flex justify-content-center py-3">
-                <ul class="nav nav-pills nav-border justify-content-center align-items-center">
-                    <li class="nav-item"><a href="#home" class="nav-link custom-text">About</a></li>
-                    <li class="nav-item"><a href="#skills" class="nav-link custom-text">Skills</a></li>
-                    <li class="nav-item"><a href="#project" class="nav-link custom-text">Projects</a></li>
-                    <li class="nav-item welcome-text">Welcome</li>
-                    <li class="nav-item"><a href="#Service" class="nav-link custom-text">Experience</a></li>
-                    <li class="nav-item"><a href="#certification" class="nav-link custom-text">Certifications</a></li>
-                    <li class="nav-item"><a href="#blogs" class="nav-link custom-text">Works</a></li>
-                </ul>
-            </header>
-        </div>
 
-        <div class="title">
-            <h5>Hello!</h5>
-            <h1 class="display-5 fw-bold text-white lh-1 mb-3">I'm <span class="name">Suchitra V,</span></h1>
-            <h2 class="display-6 fw-bold text-white-50">ServiceNow Developer</h2>
-        </div>
-
-        <div class="experience">
-            <div class="stars mb-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="orange" class="bi bi-star-fill" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" /></svg>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="orange" class="bi bi-star-fill" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" /></svg>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="orange" class="bi bi-star-fill" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" /></svg>
-            </div>
-            <h4>
-                <h3 class="fw-bold">2+ Years</h3><span class="exp">Professional Expertise</span>
-            </h4>
-        </div>
-
-        <div class="symbol text-center mt-4">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="orange" class="bi bi-quote" viewBox="0 0 16 16">
-                <path d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388q0-.527.062-1.054.093-.558.31-.992t.559-.683q.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 9 7.558V11a1 1 0 0 0 1 1zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612q0-.527.062-1.054.094-.558.31-.992.217-.434.559-.683.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 3 7.558V11a1 1 0 0 0 1 1z" />
-            </svg>
-            <div class="quote mt-2">
-                Architecting complex digital workflows—bridging the gap between core backend engineering and the ServiceNow ecosystem.
-            </div>
-        </div>
-
-        <div class="semi-circle text-center">
-            <svg width="400" height="200" viewBox="0 0 500 250">
-                <path d="M0,250 A250,250 0 0,1 500,250 0 Z" fill="orange" />
-            </svg>
-        </div>
+<nav>
+  <div class="nav-inner">
+    <a href="#top" class="logo"><span class="dot"></span>SUCHITRA.SYS</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#status">Overview</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#contact" class="nav-cta">Contact</a>
     </div>
+  </div>
+</nav>
 
-    <div class="container col-xxl-8 px-4 py-5" id="home">
-        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-            <div class="col-10 col-sm-8 col-lg-6">
-                <img src="assets/hireme.jpg" class="d-block mx-lg-auto img-fluid rounded shadow-lg" alt="Suchitra V" width="500" height="400" loading="lazy">
-            </div>
-            <div class="col-lg-6">
-                <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Why <span class="name">Hire ME</span>?</h1>
-                <p class="lead">
-                    I am a <strong>ServiceNow Developer</strong> with a unique <strong>"Pro-Code"</strong> advantage. I leverage a deep background in <strong>Java and Node.js</strong> to build high-complexity integrations that go beyond standard platform limits.
-                </p>
-                <p class="lead">
-                    Specializing in <strong>Scripted REST APIs</strong>, complex <strong>Script Includes</strong>, and <strong>ITOM optimization</strong>, I transform manual enterprise bottlenecks into scalable, code-driven workflows.
-                </p>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                    <a href="https://www.linkedin.com/in/suchitra-v-8036781ab" target="_blank" class="btn btn-warning btn-lg px-4">Hire Me</a>
-                    <a href="Resume - Servicenow.pdf" download class="btn btn-outline-secondary btn-lg px-4">Download Resume</a>
-                </div>
-            </div>
-        </div>
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-top">
+      <div class="avatar">SV<span class="blip"></span></div>
+      <span class="status-pill"><span class="dot" style="animation:none;"></span>All systems operational</span>
     </div>
-
-<section id="skills" class="py-5 text-center">
-    <div class="project-title mb-5">
-        <h1 class="text-white">Platform & <span class="name">Tech Stack</span></h1>
+    <h1>Suchitra V</h1>
+    <div class="role">ServiceNow Developer · Integration &amp; Backend Engineer</div>
+    <p class="hero-lead">I build the layer between ServiceNow and the systems it needs to talk to — scripted REST APIs, custom Java/Node.js middleware, and Flow Designer automations that take manual ITSM work off people's plates. 3 years shipping production ServiceNow solutions for telecom infrastructure at Sify Technologies.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="mailto:suchitravelusamy@gmail.com">Email Me →</a>
+      <a class="btn btn-ghost" href="./Suchitra_V_Resume.pdf" target="_blank" rel="noopener">Download Résumé</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/suchitra-v-8036781ab" target="_blank" rel="noopener">LinkedIn</a>
     </div>
-    
-    <div class="container d-flex flex-wrap justify-content-center gap-3">
-        
-        <button class="btn btn-sn-core">ServiceNow</button>
-        <button class="btn btn-sn-core">GlideScripting</button>
-        <button class="btn btn-sn-core">Flow Designer</button>
-        <button class="btn btn-sn-core">ITSM / ITOM</button>
-        <button class="btn btn-sn-core">IntegrationHub</button>
-
-        <button class="btn btn-tech-outline">
-            <img class="me-2" width="20" height="20" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"> Node.js
-        </button>
-        <button class="btn btn-tech-outline">
-            <img class="me-2" width="20" height="20" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"> Java
-        </button>
-        <button class="btn btn-tech-outline">Spring Boot</button>
-        <button class="btn btn-tech-outline">REST APIs</button>
-
-        <button class="btn btn-sn-mint">MySQL / MongoDB</button>
-        <button class="btn btn-sn-mint">JavaScript (ES6+)</button>
-        <button class="btn btn-sn-mint">GitHub / Git</button>
-
+    <div class="hero-meta mono">
+      <span>India</span>
+      <span>Open to ServiceNow Developer roles</span>
+      <span>CAD Certification — target Jul 2026</span>
     </div>
+  </div>
+</header>
+
+<section id="status">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Core Competencies</span>
+      <h2>Service Status</h2>
+      <p>What's running in production, mapped the way a NOC dashboard would track it.</p>
+    </div>
+    <div class="panel status-board reveal">
+      <div class="status-row">
+        <span class="dot"></span>
+        <span class="name">ServiceNow Platform Engineering</span>
+        <span class="desc">Script Includes, Business Rules (Async/Before/Display), GlideRecord, ACLs, Data Policies</span>
+        <span class="state">OPERATIONAL</span>
+      </div>
+      <div class="status-row">
+        <span class="dot"></span>
+        <span class="name">API &amp; System Integrations</span>
+        <span class="desc">Scripted REST APIs, IntegrationHub, SOAP, Webhooks, JDBC, MID Server</span>
+        <span class="state">OPERATIONAL</span>
+      </div>
+      <div class="status-row">
+        <span class="dot"></span>
+        <span class="name">Workflow &amp; Process Automation</span>
+        <span class="desc">Flow Designer, Workflow Editor, Service Catalog engineering</span>
+        <span class="state">OPERATIONAL</span>
+      </div>
+      <div class="status-row">
+        <span class="dot"></span>
+        <span class="name">Backend &amp; Middleware Engineering</span>
+        <span class="desc">Java (Spring Boot), Node.js — custom middleware &amp; automation pipelines</span>
+        <span class="state">OPERATIONAL</span>
+      </div>
+      <div class="status-row">
+        <span class="dot"></span>
+        <span class="name">UI Development</span>
+        <span class="desc">UI Pages (Jelly/HTML), UI Builder, UI Actions, GlideAjax</span>
+        <span class="state">OPERATIONAL</span>
+      </div>
+      <div class="status-row">
+        <span class="dot"></span>
+        <span class="name">Data Management</span>
+        <span class="desc">Transform Maps, Scheduled Jobs, CMDB ingestion at scale</span>
+        <span class="state">OPERATIONAL</span>
+      </div>
+      <div class="status-row">
+        <span class="dot amber"></span>
+        <span class="name">ServiceNow CAD Certification</span>
+        <span class="desc">Certified Application Developer</span>
+        <span class="state amber">IN PROGRESS · TARGET JUL 2026</span>
+      </div>
+    </div>
+  </div>
 </section>
 
-    <div class="album py-5 bg-body-tertiary" id="project">
-        <div class="project-title mb-4">
-            <h1 class="fw-light text-dark">Featured <span class="name">Implementations</span></h1>
-        </div>
-        <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-                <div class="col">
-                    <div class="card shadow-sm h-100 dark-project-card">
-                        <div class="card-body d-flex flex-column">
-                            <p class="card-text fw-bold fs-5">Network ITOM Dashboard</p>
-                            <p class="card-text text-light-50 small">Built ServiceNow UI Pages & Java integrations fetching data from Neo4j for real-time monitoring.</p>
-                            <div class="mt-auto"><span class="badge bg-warning text-dark">ITOM</span> <span class="badge bg-secondary">REST API</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm h-100 dark-project-card">
-                        <img src="assets/notesapp.jpg" class="card-img-top" alt="Notes App" style="height: 150px; object-fit: cover;">
-                        <div class="card-body d-flex flex-column">
-                            <p class="card-text fw-bold">Secure Notes Vault</p>
-                            <p class="card-text text-light-50 small">JWT-authenticated full-stack app highlighting expertise in security and identity management.</p>
-                            <a href="https://github.com/Suchitra-V31/Notes---APP" target="_blank" class="btn btn-sm btn-warning mt-auto">View Source</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm h-100 dark-project-card">
-                        <img src="assets/todolist.png" class="card-img-top" alt="To-Do App" style="height: 150px; object-fit: cover;">
-                        <div class="card-body d-flex flex-column">
-                            <p class="card-text fw-bold">Order Lifecycle Automation</p>
-                            <p class="card-text text-light-50 small">Node.js API integration with ServiceNow to automate order fulfillment workflows.</p>
-                            <a href="https://github.com/Suchitra-V31/To-do-list" target="_blank" class="btn btn-sm btn-warning mt-auto">View Source</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<section id="metrics">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Production Impact</span>
+      <h2>Deployment Metrics</h2>
     </div>
-
-    <div class="experience-section py-5" id="Service">
-        <div class="project-title mb-5">
-            <h1 class="fw-light text-white">Professional <span class="name">Experience</span></h1>
-        </div>
-        <div class="experience-container">
-            <div class="experience-card">
-                <div class="experience-header d-flex justify-content-between align-items-start">
-                    <div>
-                        <h3>Sify Technologies</h3>
-                        <span class="text-warning fw-bold">Software Developer</span>
-                    </div>
-                    <p class="text-white-50">July 2023 - Present</p>
-                </div>
-                <ul class="experience-projects mt-3">
-                    <li><strong>Service Delivery Automation:</strong> Automated lifecycle for Express Connect using Flows & Script Includes <span class="text-warning">(30% efficiency boost)</span>.</li>
-                    <li><strong>Network ITOM:</strong> Built real-time monitoring via UI Pages & Node.js scripts <span class="text-warning">(25% downtime reduction)</span>.</li>
-                    <li><strong>Systems Integration:</strong> Managed REST API & MID Server configurations for automated infrastructure discovery.</li>
-                </ul>
-            </div>
-        </div>
+    <div class="metrics-grid reveal">
+      <div class="metric"><div class="num" data-count="40" data-suffix="%">0%</div><div class="label">Faster service delivery</div></div>
+      <div class="metric"><div class="num" data-count="30" data-suffix="%">0%</div><div class="label">Platform efficiency gained</div></div>
+      <div class="metric"><div class="num" data-count="60" data-suffix="%">0%</div><div class="label">Manual PM effort reduced</div></div>
+      <div class="metric"><div class="num" data-count="500" data-suffix="+">0+</div><div class="label">Devices monitored in real time</div></div>
+      <div class="metric"><div class="num" data-count="1000" data-suffix="+">0+</div><div class="label">Configuration items managed</div></div>
+      <div class="metric"><div class="num" data-count="10" data-suffix="+">0+</div><div class="label">Scripted REST APIs shipped</div></div>
     </div>
+  </div>
+</section>
 
-    <div class="project-title py-5 bg-light" id="certification">
-        <h1 class="fw-light text-dark">Official <span class="name">Certifications</span></h1>
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Track Record</span>
+      <h2>Change Log</h2>
     </div>
-    <div id="myCarousel" class="carousel slide container pb-5" data-bs-ride="carousel">
-        <div class="carousel-inner rounded shadow-lg overflow-hidden">
-            <div class="carousel-item active" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('assets/flows.png');">
-                <div class="carousel-caption">
-                    <h3>ServiceNow Flow Designer</h3>
-                    <p>Micro-Certification Certified</p>
-                    <a class="btn btn-warning" href="https://www.credly.com/badges/cf26f160-be3b-48c6-a00b-d938f9689895/public_url" target="_blank">Verify Credential</a>
-                </div>
-            </div>
-            <div class="carousel-item" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('assets/hub.png');">
-                <div class="carousel-caption">
-                    <h3>Integration Hub Mastery</h3>
-                    <p>ServiceNow Micro-Certification</p>
-                    <a class="btn btn-warning" href="https://www.credly.com/badges/7e81e32e-7d6f-424f-9d10-cac54b3722e9/public_url" target="_blank">Verify Credential</a>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
-        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+    <div class="panel changelog-entry reveal">
+      <div class="changelog-head">
+        <span class="changelog-tag">2023-07 → PRESENT</span>
+        <h3>Software Developer</h3>
+        <span class="co">@ Sify Technologies Limited</span>
+      </div>
+      <ul>
+        <li><b>API &amp; Integration Engineering</b> — architected and deployed 10+ inbound/outbound Scripted REST APIs for real-time data exchange between ServiceNow and external enterprise systems, working around standard out-of-the-box API limitations.</li>
+        <li><b>Custom Middleware Development</b> — built a Node.js validation middleware and a Java-based SNMP data collector integrated with ServiceNow, automating real-time network telemetry capture across 500+ infrastructure devices.</li>
+        <li><b>Advanced Platform Scripting</b> — engineered modular, reusable Script Includes and asynchronous Business Rules to automate ITSM workflows across Incident, Change, and Problem Management, improving system efficiency by 30%.</li>
+        <li><b>UI Development</b> — designed interactive UI Pages and UI Builder components using GlideAjax and Jelly scripting to surface live infrastructure insights, letting NOC engineers act on data without leaving the platform.</li>
+        <li><b>Workflow &amp; Integration Automation</b> — delivered Flow Designer workflows and IntegrationHub spokes with cross-functional Agile teams, streamlining Service Catalog fulfillment and cutting manual PM effort by 60%.</li>
+        <li><b>Data Management</b> — automated high-volume CMDB data ingestion via Transform Maps and Scheduled Jobs, maintaining CI integrity across 1,000+ configuration items, enforced through ACLs and Data Policies.</li>
+      </ul>
     </div>
+  </div>
+</section>
 
-    <footer class="main-footer py-5 text-white bg-dark">
-        <div class="container text-center">
-            <h2 class="fw-light mb-4">Let's Connect <span class="name">there</span></h2>
-            <div class="d-flex justify-content-center gap-3 mb-4">
-                <a href="https://www.linkedin.com/in/suchitra-v-8036781ab" target="_blank" class="btn btn-warning px-5 py-2">LinkedIn</a>
-                <a href="mailto:suchitravelusamy@gmail.com" class="btn btn-outline-light px-5 py-2">Email Me</a>
-            </div>
-            <p class="text-secondary small">&copy; 2026 Suchitra V. Built with ServiceNow Best Practices.</p>
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Key Projects</span>
+      <h2>Project Deployments</h2>
+    </div>
+    <div class="project-grid">
+      <div class="panel project-card reveal">
+        <div>
+          <div class="ptitle">Service Delivery Automation</div>
+          <div class="ptime">Apr 2024 — Jul 2024</div>
         </div>
-    </footer>
+        <div class="pstack"><span>ServiceNow</span><span>Node.js</span><span>MySQL</span></div>
+        <div class="pblock"><b>Objective</b>Engineered an end-to-end automation pipeline for Express Connect and Site Connect service orders, removing all manual intervention from PM creation through IR sign-off.</div>
+        <div class="pblock"><b>Approach</b>Built Scripted REST endpoints in ServiceNow communicating with a Node.js validation engine backed by MySQL, enabling real-time order status checks and auto-approvals.</div>
+        <div class="impact">Reduced average service delivery time by 40%, saving roughly 15 hours/week of manual PM effort across the delivery team.</div>
+      </div>
+      <div class="panel project-card reveal">
+        <div>
+          <div class="ptitle">Network Utilization Dashboard</div>
+          <div class="ptime">Jul 2024 — Sep 2024</div>
+        </div>
+        <div class="pstack"><span>ServiceNow</span><span>Java</span><span>Neo4j</span></div>
+        <div class="pblock"><b>Objective</b>Built a single-pane-of-glass network performance dashboard within ServiceNow for the NOC team, consolidating circuit utilization data from disparate sources.</div>
+        <div class="pblock"><b>Approach</b>Developed Java APIs to query a Neo4j graph database representing network topology, then parsed and rendered the data through custom ServiceNow UI Pages.</div>
+        <div class="impact">Gave NOC engineers real-time circuit visibility, reducing Mean Time to Resolution by enabling proactive bottleneck detection.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Full Stack</span>
+      <h2>Tech Stack</h2>
+    </div>
+    <div class="panel reveal" style="padding:28px;">
+      <div class="skill-group">
+        <h4>Core Scripting</h4>
+        <div class="chips">
+          <span class="chip">Script Includes</span><span class="chip">Business Rules</span><span class="chip">Client Scripts</span><span class="chip">GlideRecord</span><span class="chip">GlideAjax</span><span class="chip">Scheduled Jobs</span><span class="chip">ACLs</span><span class="chip">Data Policies</span><span class="chip">Transform Maps</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>UI Development</h4>
+        <div class="chips">
+          <span class="chip">UI Pages (Jelly/HTML)</span><span class="chip">UI Builder</span><span class="chip">UI Actions</span><span class="chip">GlideAjax</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Integrations</h4>
+        <div class="chips">
+          <span class="chip">Scripted REST APIs</span><span class="chip">IntegrationHub</span><span class="chip">SOAP</span><span class="chip">Webhooks</span><span class="chip">JDBC</span><span class="chip">SNMP Data Capture</span><span class="chip">MID Server</span><span class="chip">Node.js/Java Middleware</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Workflow &amp; Automation</h4>
+        <div class="chips">
+          <span class="chip">Flow Designer</span><span class="chip">Workflow Editor</span><span class="chip">Service Catalog</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>ITSM Modules</h4>
+        <div class="chips">
+          <span class="chip">Incident</span><span class="chip">Change</span><span class="chip">Problem</span><span class="chip">Service Catalog</span><span class="chip">CMDB</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Languages &amp; Databases</h4>
+        <div class="chips">
+          <span class="chip">JavaScript</span><span class="chip">Java (Spring Boot)</span><span class="chip">Node.js</span><span class="chip">SQL</span><span class="chip">MySQL</span><span class="chip">PostgreSQL</span><span class="chip">MongoDB</span><span class="chip">Neo4j</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Tools &amp; Practices</h4>
+        <div class="chips">
+          <span class="chip">Agile/Scrum</span><span class="chip">Git</span><span class="chip">Postman</span><span class="chip">REST/JSON</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Platform Versions</h4>
+        <div class="chips">
+          <span class="chip">Tokyo</span><span class="chip">Utah</span><span class="chip">Vancouver</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Credentials</span>
+      <h2>Certifications &amp; Education</h2>
+    </div>
+    <div class="cert-grid">
+      <div class="panel cert-list reveal">
+        <div class="cert-item">
+          <span class="dot amber" style="margin-top:6px;"></span>
+          <div class="ctext"><b>ServiceNow Certified Application Developer (CAD)</b><span>In progress — target: July 2026</span></div>
+        </div>
+        <div class="cert-item">
+          <span class="dot" style="margin-top:6px;"></span>
+          <div class="ctext"><b>ServiceNow Micro-Certifications</b><span>Integration Hub · Flow Designer · Welcome to ServiceNow</span></div>
+        </div>
+        <div class="cert-item">
+          <span class="dot" style="margin-top:6px;"></span>
+          <div class="ctext"><b>Java &amp; JavaScript</b><span>HackerRank</span></div>
+        </div>
+        <div class="cert-item">
+          <span class="dot" style="margin-top:6px;"></span>
+          <div class="ctext"><b>Node.js</b><span>Simplilearn</span></div>
+        </div>
+        <div class="cert-item">
+          <span class="dot" style="margin-top:6px;"></span>
+          <div class="ctext"><b>Spring Boot</b><span>Udemy</span></div>
+        </div>
+        <div class="cert-item">
+          <span class="dot" style="margin-top:6px;"></span>
+          <div class="ctext"><b>Introduction to Networking</b><span>SkillSoft</span></div>
+        </div>
+      </div>
+      <div class="panel edu-card reveal">
+        <h4>Education</h4>
+        <div class="school">Sri Sairam Engineering College</div>
+        <div class="degree">B.E., Electronics &amp; Communication Engineering</div>
+        <div class="degree mono" style="margin-top:10px; font-size:0.78rem;">Jul 2019 — Apr 2023</div>
+        <div class="gpa">CGPA: 8.9</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="panel contact-panel reveal">
+      <span class="status-pill"><span class="dot" style="animation:none;"></span>Open to opportunities</span>
+      <h2>Let's build something that ships.</h2>
+      <p>Looking for a ServiceNow Developer who can own the integration layer end to end? I'm available for full-time roles.</p>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:suchitravelusamy@gmail.com">suchitravelusamy@gmail.com</a>
+        <a class="btn btn-ghost" href="tel:+919361313783">+91 93613 13783</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/suchitra-v-8036781ab" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Suchitra V</span>
+      <span>Built &amp; deployed on GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.12});
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  // metric count-up
+  const metricEls = document.querySelectorAll('.metric .num');
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const el = entry.target;
+        const target = parseInt(el.getAttribute('data-count'), 10);
+        const suffix = el.getAttribute('data-suffix') || '';
+        const duration = 1100;
+        const start = performance.now();
+        function tick(now){
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.round(target * eased) + suffix;
+          if(progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        countObserver.unobserve(el);
+      }
+    });
+  }, {threshold:0.4});
+  metricEls.forEach(el => countObserver.observe(el));
+</script>
+
 </body>
 </html>
